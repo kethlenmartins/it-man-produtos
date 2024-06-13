@@ -1,12 +1,12 @@
 // public/js/api.js
 async function fetchProducts() {
-    const response = await fetch('/product');
+    const response = await fetch('/products');
     return response.json();
   }
   
   async function addProduct(formData) {
-    const response = await fetch('/product/new', {
-      method: 'PUT',
+    const response = await fetch('/product/create', {
+      method: 'POST',
       body: formData,
     });
   
@@ -18,7 +18,7 @@ async function fetchProducts() {
   }
   
   async function fetchProductById(productId) {
-    const response = await fetch(`/product/${productId}`);
+    const response = await fetch('/product/${productId}');
   
     if (!response.ok) {
       throw new Error('Produto não encontrado');
@@ -28,8 +28,8 @@ async function fetchProducts() {
   }
   
   async function updateProduct(productId, formData) {
-    const response = await fetch(`/product/${productId}`, {
-      method: 'POST',
+    const response = await fetch('/product/${productId}', {
+      method: 'PUT',
       body: formData,
     });
   
@@ -39,7 +39,7 @@ async function fetchProducts() {
   }
   
   async function deleteProduct(productId) {
-    const response = await fetch(`/product/${productId}`, {
+    const response = await fetch('/product/${productId}', {
       method: 'DELETE',
     });
   

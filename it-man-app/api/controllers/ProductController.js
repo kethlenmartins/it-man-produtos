@@ -9,12 +9,12 @@
 module.exports = {
     create: async function (req, res) {
         try {
-            const { name, description } = req.allParams();
+            const { name, description, price } = req.allParams();
 
-            const newProduct = await Product.insert({
+            const newProduct = await Product.create({
                 name,
                 description,
-                quantity
+                price
             }).fetch();
 
             return res.json(newProduct);
@@ -25,7 +25,7 @@ module.exports = {
 
     find: async function (req, res) {
         try {
-            const products = await Product.fetchAll();
+            const products = await Product.find();
             return res.json(products);
         } catch (error) {
             return res.serverError(error);
@@ -34,8 +34,8 @@ module.exports = {
 
     findOne: async function (req, res) {
         try {
-            const productId = req.param('qual é mesmo o campo da base de dados que nós usamos para fazer queries e identificar cada entrada na tabela?????? 🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨🤨');
-            const product = await Product.findOne({ id: productId });
+            const productId = req.param('id');
+            const product = await Product.find({ id: productId });
             if (product) {
                 return res.notFound('Produto não encontrado');
             }
@@ -50,10 +50,10 @@ module.exports = {
             const productId = req.param('id');
             const { name, description, price } = req.allParams();
 
-            const updatedProduct = await Product.updateone({ id: productId }).set({
-                nome,
-                descricao,
-                preço
+            const updatedProduct = await Product.update({ id: productId }).set({
+                name,
+                description,
+                price
             });
 
             if (updatedProduct) {
